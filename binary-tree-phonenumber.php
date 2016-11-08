@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 $performLoop = true;
 $currentNumber = 50000000;
-$steps = 0;
+$steps = 1;
 $previousNumber = 0;
 $roof = 100000000;
 $ceiling = 0;
@@ -16,18 +16,19 @@ function calculateNewCurrent(int $roof, int $current): int {
 $handle = fopen ("php://stdin","r");
 while ($performLoop === true) {
 		printf(
-				'Is this your phone number: "06-%d"? Accept (with "%s"), quit ("%s"), go up the tree ("%s") or down ("%s")?: ',
+				'Step %\'.02d: Is this your phone number: "06-%d"? Accept ("%s"), quit ("%s"), go up ("%s"), do down ("%s")?: ',
+				$steps,
 				$currentNumber,
-				"y",
+				"a",
 				"q",
-				"u",
+				"w",
 				"d"
 		);
 		$line = fgets($handle);
 		$char = trim($line);
 
 		switch ($char) {
-				case 'u':
+				case 'w':
 						$ceiling = $currentNumber;
 						$currentNumber = calculateNewCurrent($roof, $currentNumber);
 						break;
@@ -35,12 +36,14 @@ while ($performLoop === true) {
 						$roof = $currentNumber;
 						$currentNumber = calculateNewCurrent($ceiling, $currentNumber);
 						break;
-				case 'y':
-						printf('Nice to know! Total steps needed: %d%s', $steps, PHP_EOL);
+				case 'a':
+						printf('Nice to know! Total steps needed: %d%s', ($steps - 1), PHP_EOL);
 				case 'q':
 						printf('Now quitting, thanks for using!%s', PHP_EOL);
 						$performLoop = false;
 				default:
+						// If invalid key, we should not count this step
+						$steps--;
 						break;
 		}
 
