@@ -16,7 +16,7 @@ function calculateNewCurrent(int $roof, int $current): int {
 $handle = fopen ("php://stdin","r");
 while ($performLoop === true) {
 		printf(
-				'Is this your phone number: "%d"? Accept (with "%s"), quit ("%s"), go up the tree ("%s") or down ("%s")?: ',
+				'Is this your phone number: "06-%d"? Accept (with "%s"), quit ("%s"), go up the tree ("%s") or down ("%s")?: ',
 				$currentNumber,
 				"y",
 				"q",
